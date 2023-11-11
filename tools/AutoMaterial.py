@@ -313,7 +313,7 @@ class JME_TOOLS_PT_automaterial_panel(Panel):
     bl_context = "material"
     bl_space_type = 'PROPERTIES'
     bl_region_type = 'WINDOW'
-    COMPAT_ENGINES = {'BLENDER_EEVEE', 'BLENDER_CYCLES'}
+    COMPAT_ENGINES = {'BLENDER_EEVEE', 'CYCLES'}
 
     def draw(self, context):
         # Button
