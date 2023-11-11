@@ -6,7 +6,7 @@ from bpy.props import StringProperty, BoolProperty, EnumProperty
 from bpy.types import Operator
 from bpy.types import Menu, Panel, UIList, UILayout
 from . import Utils
-
+from PIL import Image
 FORMAT_EXT = {
     "bmp": "bmp",
     "dds": "dds",
@@ -92,10 +92,8 @@ def loadPBRImages(materialName, path):
             for file in os.listdir(path):
                 fileWithoutExt = os.path.splitext(file)[0].lower().strip()
                 ext = os.path.splitext(file)[1].lower().strip()[1:]
-                print("Check",fileWithoutExt,"for",suffix,"with ext",ext)                
                 if ext in FORMAT_EXT.values():
                     if fileWithoutExt.endswith(suffix):
-                        print("Found",file,"for",k)
                         out[outName] = {
                             "filepath":os.path.join(path,file)
                         }
@@ -304,7 +302,8 @@ class JME_TOOLS_automaterial_PBR(Operator, ExportHelper):
             path = os.path.split(os.path.abspath(path))[0]+os.path.sep
         print("Use "+path+" as texture path")
         for obj in bpy.context.scene.objects:
-            loadPBRMaterial(obj, path)
+            if obj.select_get():
+                loadPBRMaterial(obj, path)
         return {"FINISHED"}
 
 
